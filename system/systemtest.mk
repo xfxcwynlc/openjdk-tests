@@ -53,3 +53,11 @@ perl $(SYSTEMTEST_RESROOT)$(D)stf$(D)stf.core$(D)scripts$(D)stf.pl \
 	-java-args=$(SQ)$(JVM_OPTIONS)$(SQ) \
 	-results-root=$(REPORTDIR)
 endef
+
+# Default test to be run for system_custom in regular system test builds 
+CUSTOM_TARGET ?= -test=ClassloadingLoadTest
+
+ADD_OPENS_CMD=""
+ifneq ($(JDK_VERSION),8)
+	ADD_OPENS_CMD=$(Q)--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED$(Q)
+endif
